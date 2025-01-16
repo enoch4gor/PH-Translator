@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+
+# Database
+*.db
+*.sqlite3
+
+# Environment variables
+.env
+
+# Cache files
+translation_cache.json
+
+# CSV files (optional, 如果你想保存历史数据就删除这行)
+products_*.csv
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo 
