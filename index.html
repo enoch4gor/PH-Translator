@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Hunt 每日精选</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Product Hunt 每日精选</h1>
+            <div class="date-selector">
+                <select v-model="selectedDate" @change="loadProductsByDate">
+                    <option v-for="date in availableDates" :key="date" :value="date">
+                        {{ formatDate(date) }}
+                    </option>
+                </select>
+            </div>
+        </header>
+        
+        <main>
+            <div v-if="error" class="error-message">
+                {{ error }}
+            </div>
+            
+            <div v-if="!products.length && !error" class="loading">
+                加载中...
+            </div>
+            
+            <div v-else class="products-grid">
+                <div v-for="product in products" :key="product.title" class="product-card">
+                    <div class="product-image">
+                        <img :src="product.image_url || defaultImage" 
+                             :alt="product.title"
+                             @error="handleImageError"
+                             @load="handleImageLoad"
+                             class="product-img">
+                        <div v-if="product.sale" class="sale-badge">Sale!</div>
+                    </div>
+                    <div class="product-info">
+                        <h2>{{ product.title_cn || product.title }}</h2>
+                        <p>{{ product.description_cn || product.description }}</p>
+                        <div class="categories">
+                            <span v-for="category in product.categories.split('•')" 
+                                  :key="category">
+                                {{ category }}
+                            </span>
+                        </div>
+                        <div class="product-meta">
+                            <div class="price-rating">
+                                <div class="rating">
+                                    <span v-for="n in 5" :key="n" class="star"
+                                          :class="{ empty: n > (product.rating || 3) }">
+                                        ★
+                                    </span>
+                                </div>
+                                <div class="price" v-if="product.price">
+                                    <span v-if="product.original_price" class="original-price">
+                                        £{{ product.original_price }}
+                                    </span>
+                                    <span :class="{'sale-price': product.original_price}">
+                                        £{{ product.price }}
+                                    </span>
+                                </div>
+                            </div>
+                            <a :href="product.product_link" 
+                               target="_blank" 
+                               class="view-button">
+                                查看详情
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html> 
