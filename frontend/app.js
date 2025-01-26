@@ -1,7 +1,9 @@
 const { createApp } = Vue
 
-// 根据环境设置 API 地址
-const API_BASE_URL = 'https://ph-translator-a0kgqwsav-enochs-projects-f32951f2.vercel.app'
+// 根据环境自动选择 API 地址
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:8001'  // 本地开发环境
+    : 'https://ph-translator-a0kgqwsav-enochs-projects-f32951f2.vercel.app'  // 生产环境
 
 createApp({
     data() {
