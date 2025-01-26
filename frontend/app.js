@@ -1,9 +1,7 @@
 const { createApp } = Vue
 
 // 根据环境设置 API 地址
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://你的后端API地址'  // 这里需要替换为实际的后端地址
-    : 'http://localhost:8001'
+const API_BASE_URL = 'https://ph-translator-a0kgqwsav-enochs-projects-f32951f2.vercel.app'
 
 createApp({
     data() {
