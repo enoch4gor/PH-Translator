@@ -1,6 +1,9 @@
 const { createApp } = Vue
 
-const API_BASE_URL = 'http://localhost:8001'
+// 根据环境设置 API 地址
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://你的后端API地址'  // 这里需要替换为实际的后端地址
+    : 'http://localhost:8001'
 
 createApp({
     data() {
