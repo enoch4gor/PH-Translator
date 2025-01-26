@@ -13,7 +13,7 @@
     <div id="app">
         <header>
             <h1>Product Hunt 每日精选</h1>
-            <div class="date-selector">
+            <div class="date-selector" v-if="availableDates.length">
                 <select v-model="selectedDate" @change="loadProductsByDate">
                     <option v-for="date in availableDates" :key="date" :value="date">
                         {{ formatDate(date) }}
@@ -24,10 +24,11 @@
         
         <main>
             <div v-if="error" class="error-message">
-                {{ error }}
+                <p>{{ error }}</p>
+                <button @click="fetchProducts" class="retry-button">重试</button>
             </div>
             
-            <div v-if="!products.length && !error" class="loading">
+            <div v-else-if="loading" class="loading">
                 加载中...
             </div>
             
